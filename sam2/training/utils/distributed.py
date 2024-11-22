@@ -30,7 +30,7 @@ _PRIMARY_RANK = 0
 @functools.lru_cache()
 def _get_global_gloo_group():
     """
-    Return a process group based on gloo backend, containing all the ranks
+    Return a backend group based on gloo backend, containing all the ranks
     The result is cached.
     """
 
@@ -48,7 +48,7 @@ def _get_global_gloo_group():
 
 
 def is_main_process():
-    """Return true if the current process is the main one"""
+    """Return true if the current backend is the main one"""
     return get_rank() == 0
 
 
@@ -330,7 +330,7 @@ def broadcast(tensor: torch.Tensor, src: int = 0) -> torch.Tensor:
 def barrier() -> None:
     """
     Wrapper over torch.distributed.barrier, returns without waiting
-    if the distributed process group is not initialized instead of throwing error.
+    if the distributed backend group is not initialized instead of throwing error.
     """
     if not torch.distributed.is_available() or not torch.distributed.is_initialized():
         return
@@ -531,8 +531,8 @@ def unwrap_ddp_if_wrapped(model):
 
 def create_new_process_group(group_size):
     """
-    Creates process groups of a gives `group_size` and returns
-    process group that current GPU participates in.
+    Creates backend groups of a gives `group_size` and returns
+    backend group that current GPU participates in.
 
     `group_size` must divide the total number of GPUs (world_size).
 
@@ -562,7 +562,7 @@ def create_new_process_group(group_size):
         cur_group = torch.distributed.new_group(ranks=group_ids)
         if torch.distributed.get_rank() // group_size == group_num:
             group = cur_group
-            # can not drop out and return here, every process must go through creation of all subgroups
+            # can not drop out and return here, every backend must go through creation of all subgroups
 
     assert group is not None
     return group

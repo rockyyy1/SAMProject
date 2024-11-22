@@ -101,7 +101,7 @@ class InferenceAPI:
         with self.autocast_context(), self.inference_lock:
             session_id = str(uuid.uuid4())
             # for MPS devices, we offload the video frames to CPU by default to avoid
-            # memory fragmentation in MPS (which sometimes crashes the entire process)
+            # memory fragmentation in MPS (which sometimes crashes the entire backend)
             offload_video_to_cpu = self.device.type == "mps"
             inference_state = self.predictor.init_state(
                 request.path,

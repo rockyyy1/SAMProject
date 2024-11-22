@@ -22,7 +22,7 @@ def get_args_parser():
     # ------------
     data_parser = parser.add_argument_group(
         title="SA-V dataset data root",
-        description="What data to load and how to process it.",
+        description="What data to load and how to backend it.",
     )
     data_parser.add_argument(
         "--sav-vid-dir",

@@ -27,8 +27,8 @@ export function convertVideoFrameToImageData(
 
 /**
  * This utility provides two functions:
- * `process`: to find the bounding box of non-empty pixels from an ImageData, when looping through all its pixels
- * `crop` to cut out the subsection found in `process`
+ * `backend`: to find the bounding box of non-empty pixels from an ImageData, when looping through all its pixels
+ * `crop` to cut out the subsection found in `backend`
  * @returns
  */
 export function findBoundingBox() {

@@ -256,7 +256,7 @@ declare module 'mp4box' {
     start(): void;
     stop(): void;
     /**
-     * Indicates that the next samples to process (for extraction or
+     * Indicates that the next samples to backend (for extraction or
      * segmentation) start at the given time (Number, in seconds) or at the
      * time of the previous Random Access Point (if useRap is true, default
      * is false). Returns the offset in the file of the next bytes to be

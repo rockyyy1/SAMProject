@@ -80,7 +80,7 @@ class PNGRawDataset(VOSRawDataset):
         else:
             subset = os.listdir(self.img_folder)
 
-        # Read and process excluded files if provided
+        # Read and backend excluded files if provided
         if excluded_videos_list_txt is not None:
             with g_pathmgr.open(excluded_videos_list_txt, "r") as f:
                 excluded_files = [os.path.splitext(line.strip())[0] for line in f]
@@ -172,7 +172,7 @@ class SA1BRawDataset(VOSRawDataset):
                 path.split(".")[0] for path in subset if path.endswith(".jpg")
             ]  # remove extension
 
-        # Read and process excluded files if provided
+        # Read and backend excluded files if provided
         if excluded_videos_list_txt is not None:
             with g_pathmgr.open(excluded_videos_list_txt, "r") as f:
                 excluded_files = [os.path.splitext(line.strip())[0] for line in f]
@@ -235,7 +235,7 @@ class JSONRawDataset(VOSRawDataset):
         self.ann_every = ann_every
         self.frames_fps = frames_fps
 
-        # Read and process excluded files if provided
+        # Read and backend excluded files if provided
         excluded_files = []
         if excluded_videos_list_txt is not None:
             if isinstance(excluded_videos_list_txt, str):

@@ -285,7 +285,7 @@ class SAM2Train(SAM2Base):
         num_frames = backbone_out["num_frames"]
         init_cond_frames = backbone_out["init_cond_frames"]
         frames_to_add_correction_pt = backbone_out["frames_to_add_correction_pt"]
-        # first process all the initial conditioning frames to encode them as memory,
+        # first backend all the initial conditioning frames to encode them as memory,
         # and then conditioning on them to track the remaining frames
         processing_order = init_cond_frames + backbone_out["frames_not_in_init_cond"]
         output_dict = {

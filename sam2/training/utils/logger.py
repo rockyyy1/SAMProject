@@ -53,7 +53,7 @@ class TensorBoardWriterWrapper:
         NOTE: If using the logger with distributed training:
         - This logger can call collective operations
         - Logs will be written on rank 0 only
-        - Logger must be constructed synchronously *after* initializing distributed process group.
+        - Logger must be constructed synchronously *after* initializing distributed backend group.
 
         Args:
             path (str): path to write logs to
