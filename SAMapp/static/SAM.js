@@ -159,28 +159,32 @@ document.addEventListener('DOMContentLoaded', function() {
 
         // Add click event listener to the image
         img.addEventListener('click', function(event) {
-          const rect = img.getBoundingClientRect();
-          const x = event.clientX - rect.left;
-          const y = event.clientY - rect.top;
+        const rect = img.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
 
-          // Calculate percentages
-          const xPercent = (x / rect.width) * 100;
-          const yPercent = (y / rect.height) * 100;
+        // Calculate percentages
+        const xPercent = (x / rect.width) * 100;
+        const yPercent = (y / rect.height) * 100;
 
-          coordDisplay.textContent = `Clicked coordinates: (${Math.round(xPercent)}%, ${Math.round(yPercent)}%)`;
-          console.log([Math.round(xPercent), Math.round(yPercent)]);
+        // Display the clicked coordinates
+        // coordDisplay.textContent = `Clicked coordinates: [${xPercent}%, ${yPercent}%]`;
 
-          // Create a dot to mark the clicked position
-          const dot = document.createElement('div');
-          dot.style.position = 'absolute';
-          dot.style.left = `${xPercent}%`;
-          dot.style.top = `${yPercent}%`;
-          dot.style.width = '10px';
-          dot.style.height = '10px';
-          dot.style.backgroundColor = currentMode === 'include' ? 'green' : 'red';
-          dot.style.borderRadius = '50%';
-          dot.style.transform = 'translate(-50%, -50%)';
-          overlay.appendChild(dot);
+        // Create a dot to mark the clicked position
+        const dot = document.createElement('div');
+        dot.style.position = 'absolute';
+        dot.style.left = `${xPercent}%`;
+        dot.style.top = `${yPercent}%`;
+        dot.style.width = '10px';
+        dot.style.height = '10px';
+        dot.style.backgroundColor = currentMode === 'include' ? 'green' : 'red';
+        dot.style.borderRadius = '50%';
+        dot.style.transform = 'translate(-50%, -50%)';
+
+        // Store the current state in the dot's dataset
+        dot.dataset.state = currentMode === 'include' ? '1' : '0'; // Store the state as '1' or '0'
+
+        overlay.appendChild(dot);
         });
       };
       reader.readAsDataURL(file);
@@ -215,7 +219,7 @@ document.addEventListener('DOMContentLoaded', function() {
   };
 
 // Process button functionality
-  processButton.onclick = function() {
+processButton.onclick = function() {
     // Disable the button and show loading state
     processButton.disabled = true;
     processButton.textContent = 'Processing...';
@@ -230,7 +234,11 @@ document.addEventListener('DOMContentLoaded', function() {
     const points = Array.from(dots).map(dot => {
         const left = parseFloat(dot.style.left);
         const top = parseFloat(dot.style.top);
-        return [left, top];
+
+        // Retrieve the state stored in the dot's dataset
+        const state = dot.dataset.state ? parseInt(dot.dataset.state) : 0; // Default to 0 if no state is set
+
+        return { x: left, y: top, state: state }; // Attach state with each point
     });
 
     // Convert image to base64

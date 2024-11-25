@@ -7,6 +7,7 @@ import json
 from PIL import Image
 import io
 import base64
+from SAMapp import sammy_2_segmentor
 
 def index(request):
     return render(request, 'index.html')
@@ -14,34 +15,38 @@ def index(request):
 @csrf_exempt
 @require_http_methods(["POST"])
 def process(request):
-    try:
-        data = json.loads(request.body)
-        image_data = data.get('image')
+    data = json.loads(request.body)
+    image_data = data.get('image')
 
-        if 'base64,' in image_data:
-            image_data = image_data.split('base64,')[1]
+    if 'base64,' in image_data:
+        image_data = image_data.split('base64,')[1]
 
-        image_bytes = base64.b64decode(image_data)
-        image = Image.open(io.BytesIO(image_bytes))
+    image_bytes = base64.b64decode(image_data)
+    image = Image.open(io.BytesIO(image_bytes))
 
-        if image.mode != 'RGBA':
-            image = image.convert('RGBA')
+    if image.mode != 'RGBA':
+        image = image.convert('RGBA')
 
-        blue_overlay = Image.new('RGBA', image.size, (0, 0, 255, 76))
-        blue_tinted = Image.alpha_composite(image, blue_overlay)
-        blue_tinted = blue_tinted.convert('RGB')
+    coordinates = data.get('points', [])
 
-        buffer = io.BytesIO()
-        blue_tinted.save(buffer, format='JPEG')
-        processed_image = base64.b64encode(buffer.getvalue()).decode()
+    for coordinate in coordinates:
+        x = coordinate['x']
+        y = coordinate['y']
+        state = coordinate['state']  # 1 for include, 0 for exclude
 
-        return JsonResponse({
-            'success': True,
-            'processed_image': f'data:image/jpeg;base64,{processed_image}'
-        })
+        # You can now use `x`, `y`, and `state` to perform any logic, such as saving to a model or processing
+        print(f"Point: ({x}, {y}), State: {state}")
 
-    except Exception as e:
-        return JsonResponse({'success': False, 'error': str(e)}, status=400)
+    image = sammy_2_segmentor.process_image_with_sam(image, coordinates)
+
+    buffer = io.BytesIO()
+    image.save(buffer, format='JPEG')
+    processed_image = base64.b64encode(buffer.getvalue()).decode()
+
+    return JsonResponse({
+        'success': True,
+        'processed_image': f'data:image/jpeg;base64,{processed_image}'
+    })
 
 @csrf_exempt
 @require_http_methods(["POST"])
