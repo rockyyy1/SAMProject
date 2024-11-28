@@ -39,7 +39,11 @@ With the virtual environment activated, install the required dependencies:
 ## 4. Clone the SAM2 Repository
 Next, clone the SAM2 repository from Facebook Research:
 
-```git clone https://github.com/facebookresearch/sam2.git```
+```git clone https://github.com/facebookresearch/sam2.git segment-anything-2```
+
+move the sam2 folder to the root
+
+```mv segment-anything-2/sam2 .```
 
 ## 5. Prepare the checkpoints Directory
 If the checkpoints directory does not already exist, create it:
@@ -68,6 +72,7 @@ SAMProject/
 ├── SAMapp/
 ├── SAMProject/
 ├── sam2/
+├── segment-anything-2/
 ├── requirements.txt
 └── manage.py
 ```
@@ -76,7 +81,12 @@ SAMProject/
 Once everything is set up, you can start the Django application by running in the Root directory \SAMProject\:
 
 ```python manage.py runserver```
+
 Visit the app in your browser at http://127.0.0.1:8000/. Upload images and select whether to include or exclude them from segmentation.
+
+If you run into errors, try installing django again:
+
+```pip install django```
 
 # How To Use
 
