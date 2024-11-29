@@ -1,6 +1,6 @@
 # SAMProject
 
-This is a Django-based web application built with JavaScript that runs SAM 2 (Segment Anything in Images and Videos). The app allows users to upload their images and select whether they want the image to be included or excluded from segmentation. The segmentation is powered by the Segment Anything Model (SAM), which performs state-of-the-art segmentation on images and videos.
+This is a Django-based web application built with JavaScript that runs SAM 2 (Segment Anything Model 2). The app allows users to upload their images and select whether they want the image to be included or excluded from segmentation. The segmentation is powered by the Segment Anything Model (SAM).
 
 More information can be found [here](https://github.com/facebookresearch/sam2)
 
@@ -8,12 +8,18 @@ More information can be found [here](https://github.com/facebookresearch/sam2)
 
 ## 1. Clone the SAMProject Repository
 Start by cloning the SAMProject repository to your local machine:
+in command prompt:
 
 ```git clone https://github.com/rockyyy1/SAMProject.git```
 
 ```cd SAMProject```
 
-## 2. Create a Virtual Environment
+## 2. Clone the SAM2 Repository
+Next, clone the SAM2 repository from Facebook Research:
+
+```git clone https://github.com/facebookresearch/sam2.git segment-anything-2```
+
+## 3. Create a Virtual Environment
 Ensure you're using Python 3.12 interpreter for this project. You can download Python 3.12 from [here](https://www.python.org/downloads/release/python-3126/).
 
 ```python -m venv env```
@@ -31,19 +37,10 @@ Activate the virtual environment using the following command:
 
 ```.\env\Scripts\activate```
 
-## 3. Install the Required Python Packages
+## 4. Install the Required Python Packages
 With the virtual environment activated, install the required dependencies:
 
 ```pip install -r requirements.txt```
-
-## 4. Clone the SAM2 Repository
-Next, clone the SAM2 repository from Facebook Research:
-
-```git clone https://github.com/facebookresearch/sam2.git segment-anything-2```
-
-move the sam2 folder to the root
-
-```mv segment-anything-2/sam2 .```
 
 ## 5. Prepare the checkpoints Directory
 If the checkpoints directory does not already exist, create it:
@@ -71,7 +68,6 @@ SAMProject/
 ├── env/
 ├── SAMapp/
 ├── SAMProject/
-├── sam2/
 ├── segment-anything-2/
 ├── requirements.txt
 └── manage.py
@@ -84,9 +80,6 @@ Once everything is set up, you can start the Django application by running in th
 
 Visit the app in your browser at http://127.0.0.1:8000/. Upload images and select whether to include or exclude them from segmentation.
 
-If you run into errors, try installing django again:
-
-```pip install django```
 
 # How To Use
 
@@ -101,3 +94,9 @@ If you run into errors, try installing django again:
 3. Save Segmented Image:
 
 - Once you've made your selections, click "Save to database" to save the segmented image.
+
+# Example
+
+https://github.com/user-attachments/assets/88976195-6095-4144-a07f-6d264d3a4e2d
+
+
