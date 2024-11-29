@@ -42,12 +42,7 @@ With the virtual environment activated, install the required dependencies:
 
 ```pip install -r requirements.txt```
 
-## 5. Prepare the checkpoints Directory
-If the checkpoints directory does not already exist, create it:
-
-```mkdir checkpoints```
-
-## 6. Download the SAM2 Large Model
+## 5. Download the SAM2 Large Model
 
 Download the pre-trained SAM2 models from the following link:
 
