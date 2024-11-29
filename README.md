@@ -94,3 +94,9 @@ Visit the app in your browser at http://127.0.0.1:8000/. Upload images and selec
 3. Save Segmented Image:
 
 - Once you've made your selections, click "Save to database" to save the segmented image.
+
+# Example
+
+https://github.com/user-attachments/assets/88976195-6095-4144-a07f-6d264d3a4e2d
+
+
